@@ -1,0 +1,1 @@
+# PostgreSQL-19-Beta-Bidirectional-Logical-Replication-POC
