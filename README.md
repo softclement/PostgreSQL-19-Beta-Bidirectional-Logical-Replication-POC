@@ -31,6 +31,25 @@ PostgreSQL **native bidirectional logical replication** was introduced in **Post
 
 The fix: `origin = none` instructs each subscriber to replicate **only locally written changes**, breaking the loop.
 
+```mermaid
+flowchart LR
+    subgraph N1["NODE 1 (pg_node1:5433)"]
+        P1["Publisher: pub_node1"]
+        S1["Subscriber: sub_from_node2"]
+    end
+
+    subgraph N2["NODE 2 (pg_node2:5434)"]
+        S2["Subscriber: sub_from_node1"]
+        P2["Publisher: pub_node2"]
+    end
+
+    P1 --> S2
+    P2 --> S1
+
+    Note["origin = none<br/>Prevents infinite replication loops"]
+```
+
+
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                                                         │
