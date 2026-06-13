@@ -49,21 +49,24 @@ flowchart LR
     Note["origin = none<br/>Prevents infinite replication loops"]
 ```
 
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                                                         │
-│   NODE 1 (pg_node1:5433)      NODE 2 (pg_node2:5434)    │
-│   ┌─────────────────┐         ┌─────────────────┐       │
-│   │   publisher:    │──────▶ │   subscriber:    │      │
-│   │   pub_node1     │         │   sub_from_node1 │      │
-│   │                 │         │                  │      │
-│   │   subscriber:   │◀────── │   publisher:     │       │
-│   │   sub_from_node2│         │   pub_node2      │       │
-│   └─────────────────┘         └──────────────────┘       │
-│                                                          │
-│         origin = none  ←── prevents infinite loops      │
-└─────────────────────────────────────────────────────────┘
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│                    Bidirectional Replication                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  NODE 1 (pg_node1:5433)         NODE 2 (pg_node2:5434)          │
+│                                                                 │
+│  ┌─────────────────────┐        ┌─────────────────────┐         │
+│  │ Publisher           │──────▶ │ Subscriber         │         │
+│  │ pub_node1           │        │ sub_from_node1      │         │
+│  │                     │        │                     │         │
+│  │ Subscriber          │◀────── │ Publisher           │        │
+│  │ sub_from_node2      │        │ pub_node2           │         │
+│  └─────────────────────┘        └─────────────────────┘         │
+│                                                                 │
+│      origin = none  ←─ Prevents infinite replication loops      │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
